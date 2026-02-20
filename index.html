@@ -1,11 +1,714 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hello World</title>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>سورة العنكبوت - عرض تقديمي شامل</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<style>
+body {
+    font-family: "Cairo", sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow: hidden
+    }
+.title-font {
+    font-family: "Amiri", serif
+    }
+.body-font {
+    font-family: "Cairo", sans-serif
+    }
+.slide-container {
+    width: 1280px;
+    height: 720px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden
+    }
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column
+    }
+.slide.active {
+    opacity: 1;
+    pointer-events: all
+    }
+.slide-header {
+    min-height: 65px;
+    flex-shrink: 0
+    }
+.slide-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative
+    }
+.nav-button {
+    position: fixed;
+    top: 50%;
+    transform: translatey(-50%);
+    background: rgba(251, 191, 36, 0.3);
+    border: 2px solid rgba(251, 191, 36, 0.6);
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    z-index: 1000
+    }
+.nav-button:hover {
+    background: rgba(251, 191, 36, 0.5);
+    border-color: rgba(251, 191, 36, 0.8);
+    transform: translatey(-50%) scale(1.1)
+    }
+.nav-prev {
+    left: 20px
+    }
+.nav-next {
+    right: 20px
+    }
+.slide-indicator {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translatex(-50%);
+    background: rgba(13, 71, 161, 0.9);
+    border: 2px solid rgba(251, 191, 36, 0.5);
+    padding: 12px 24px;
+    border-radius: 30px;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    z-index: 1000
+    }
+.slide-content::-webkit-scrollbar {
+    width: 12px
+    }
+.slide-content::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    margin: 8px 0
+    }
+.slide-content::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, rgba(251, 191, 36, 0.5), rgba(251, 191, 36, 0.7));
+    border-radius: 6px;
+    border: 2px solid rgba(255, 255, 255, 0.1)
+    }
+.slide-content::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, rgba(251, 191, 36, 0.7), rgba(251, 191, 36, 0.9))
+    }
+</style>
 </head>
-<body>
-  <h1>Hello, World!</h1>
+<body style="background: #0a1628">
+
+<div class="slide-container" id="slideContainer">
+<!-- Slide 1: Cover -->
+<div class="slide active" id="slide1">
+<div class="absolute inset-0 bg-cover bg-center" style="background-image: url(https://sfile.chatglm.cn/images-ppt/6e434ec75239.jpeg)"></div>
+<div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(26, 35, 126, 0.75), rgba(13, 71, 161, 0.85))"></div>
+<div class="relative z-10 h-full flex flex-col justify-center items-center px-20">
+<div class="mb-6">
+<div class="inline-block px-8 py-2 rounded-full border-2 border-amber-400 border-opacity-60 bg-white bg-opacity-5 backdrop-blur-sm">
+<p class="body-font text-amber-300 text-lg font-light tracking-wider">سورة مكية</p>
+</div>
+</div>
+<h1 class="title-font text-7xl font-bold text-white leading-tight mb-8" style="text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.5);
+letter-spacing: 0.05em">
+سورة العنكبوت
+</h1>
+<div class="w-80 h-0.5 mx-auto mb-8" style="background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.6), transparent)"></div>
+<p class="body-font text-2xl text-amber-200 font-light mb-4">Surah Al-Ankabut</p>
+<p class="body-font text-3xl text-amber-100 font-medium tracking-wide">69 آية</p>
+<div class="mt-12 flex items-center justify-center gap-8 text-white text-opacity-90">
+<div class="text-center">
+<p class="body-font text-base font-light mb-1">الجزء</p>
+<p class="title-font text-3xl font-bold text-amber-300">20</p>
+</div>
+<div class="w-px h-12 bg-white bg-opacity-30"></div>
+<div class="text-center">
+<p class="body-font text-base font-light mb-1">الحزب</p>
+<p class="title-font text-3xl font-bold text-amber-300">40</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Slide 2: Introduction -->
+<div class="slide" id="slide2">
+<div class="absolute inset-0 bg-cover bg-center" style="background-image: url(https://sfile.chatglm.cn/images-ppt/48c9d45c75a9.jpg)"></div>
+<div class="absolute inset-0 bg-gradient-to-bl from-blue-900/85 via-blue-950/90 to-slate-900/90"></div>
+<div class="slide-header relative z-10 flex items-center px-16 border-b border-amber-400/30">
+<h1 class="title-font text-[36px] font-bold text-amber-300">معلومات عن السورة</h1>
+</div>
+<div class="slide-content relative z-10 flex items-center justify-center px-16 py-6">
+<div class="w-full max-w-5xl">
+<div class="grid grid-cols-3 gap-5 mb-5">
+<div class="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-amber-400/20 text-center">
+<i class="material-icons text-amber-400 text-3xl mb-2">book</i>
+<p class="body-font text-white/70 text-sm mb-1">رقم السورة</p>
+<p class="title-font text-4xl font-bold text-amber-300">29</p>
+</div>
+<div class="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-amber-400/20 text-center">
+<i class="material-icons text-amber-400 text-3xl mb-2">title</i>
+<p class="body-font text-white/70 text-sm mb-1">اسم السورة</p>
+<p class="title-font text-3xl font-bold text-white">العنكبوت</p>
+</div>
+<div class="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-amber-400/20 text-center">
+<i class="material-icons text-amber-400 text-3xl mb-2">translate</i>
+<p class="body-font text-white/70 text-sm mb-1">المعنى</p>
+<p class="title-font text-2xl font-bold text-white">The Spider</p>
+</div>
+<div class="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-amber-400/20 text-center">
+<i class="material-icons text-amber-400 text-3xl mb-2">format_list_numbered</i>
+<p class="body-font text-white/70 text-sm mb-1">عدد الآيات</p>
+<p class="title-font text-4xl font-bold text-amber-300">69</p>
+</div>
+<div class="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-amber-400/20 text-center">
+<i class="material-icons text-amber-400 text-3xl mb-2">location_city</i>
+<p class="body-font text-white/70 text-sm mb-1">مكان النزول</p>
+<p class="title-font text-2xl font-bold text-white">مكية</p>
+</div>
+<div class="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-amber-400/20 text-center">
+<i class="material-icons text-amber-400 text-3xl mb-2">auto_stories</i>
+<p class="body-font text-white/70 text-sm mb-1">عدد الكلمات</p>
+<p class="title-font text-4xl font-bold text-amber-300">982</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-5">
+<div class="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-amber-400/20 text-center">
+<i class="material-icons text-amber-400 text-3xl mb-2">menu_book</i>
+<p class="body-font text-white/70 text-sm mb-1">الجزء / الحزب</p>
+<p class="title-font text-3xl font-bold text-white">20 / 40</p>
+</div>
+<div class="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-amber-400/20 text-center">
+<i class="material-icons text-amber-400 text-3xl mb-2">explore</i>
+<p class="body-font text-white/70 text-sm mb-1">الصفحة</p>
+<p class="title-font text-3xl font-bold text-amber-300">396 - 404</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Slide 3: Verses 1-14 -->
+<div class="slide" id="slide3">
+<div class="absolute inset-0 bg-cover bg-center" style="background-image: url(https://sfile.chatglm.cn/images-ppt/48c9d45c75a9.jpg)"></div>
+<div class="absolute inset-0 bg-gradient-to-bl from-blue-900/85 via-blue-950/90 to-slate-900/90"></div>
+<div class="slide-header relative z-10 flex items-center justify-between px-16 border-b border-amber-400/30">
+<h1 class="title-font text-[34px] font-bold text-amber-300">سورة العنكبوت</h1>
+<div class="flex items-center gap-3">
+<i class="material-icons text-amber-400 text-3xl">menu_book</i>
+<span class="body-font text-white/70 text-lg">الآيات 1-14</span>
+</div>
+</div>
+<div class="slide-content relative z-10 px-16 py-4">
+<div class="title-font text-[20px] leading-[1.7] text-white/95 space-y-1" dir="rtl">
+<p class="text-amber-300 font-bold text-xl mb-3">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+<p><span class="text-amber-400 font-bold">(1)</span> الٓمٓ</p>
+<p><span class="text-amber-400 font-bold">(2)</span> أَحَسِبَ ٱلنَّاسُ أَن يُتۡرَكُوٓاْ أَن يَقُولُوٓاْ ءَامَنَّا وَهُمۡ لَا يُفۡتَنُونَ</p>
+<p><span class="text-amber-400 font-bold">(3)</span> وَلَقَدۡ فَتَنَّا ٱلَّذِينَ مِن قَبۡلِهِمۡۖ فَلَيَعۡلَمَنَّ ٱللَّهُ ٱلَّذِينَ صَدَقُواْ وَلَيَعۡلَمَنَّ ٱلۡكَٰذِبِينَ</p>
+<p><span class="text-amber-400 font-bold">(4)</span> أَمۡ حَسِبَ ٱلَّذِينَ يَعۡمَلُونَ ٱلسَّيِّـَٔاتِ أَن يَسۡبِقُونَاۚ سَآءَ مَا يَحۡكُمُونَ</p>
+<p><span class="text-amber-400 font-bold">(5)</span> مَن كَانَ يَرۡجُواْ لِقَآءَ ٱللَّهِ فَإِنَّ أَجَلَ ٱللَّهِ لَأٓتٖۚ وَهُوَ ٱلسَّمِيعُ ٱلۡعَلِيمُ</p>
+<p><span class="text-amber-400 font-bold">(6)</span> وَمَن جَٰهَدَ فَإِنَّمَا يُجَٰهِدُ لِنَفۡسِهِۦٓۚ إِنَّ ٱللَّهَ لَغَنِيٌّ عَنِ ٱلۡعَٰلَمِينَ</p>
+<p><span class="text-amber-400 font-bold">(7)</span> وَٱلَّذِينَ ءَامَنُواْ وَعَمِلُواْ ٱلصَّٰلِحَٰتِ لَنُكَفِّرَنَّ عَنۡهُمۡ سَيِّـَٔاتِهِمۡ وَلَنَجۡزِيَنَّهُمۡ أَحۡسَنَ ٱلَّذِي كَانُواْ يَعۡمَلُونَ</p>
+<p><span class="text-amber-400 font-bold">(8)</span> وَوَصَّيۡنَا ٱلۡإِنسَٰنَ بِوَٰلِدَيۡهِ حُسۡنٗاۖ وَإِن جَٰهَدَاكَ لِتُشۡرِكَ بِي مَا لَيۡسَ لَكَ بِهِۦ عِلۡمٞ فَلَا تُطِعۡهُمَآٓۚ إِلَيَّ مَرۡجِعُكُمۡ فَأُنَبِّئُكُم بِمَا كُنتُمۡ تَعۡمَلُونَ</p>
+<p><span class="text-amber-400 font-bold">(9)</span> وَٱلَّذِينَ ءَامَنُواْ وَعَمِلُواْ ٱلصَّٰلِحَٰتِ لَنُدۡخِلَنَّهُمۡ فِي ٱلصَّٰلِحِينَ</p>
+<p><span class="text-amber-400 font-bold">(10)</span> وَمِنَ ٱلنَّاسِ مَن يَقُولُ ءَامَنَّا بِٱللَّهِ فَإِذَآ أُوذِيَ فِي ٱللَّهِ جَعَلَ فِتۡنَةَ ٱلنَّاسِ كَعَذَابِ ٱللَّهِۖ وَلَئِن جَآءَ نَصۡرٞ مِّن رَّبِّكَ لَيَقُولُنَّ إِنَّآ كُنَّا مَعَكُمۡۚ أَوَلَيۡسَ ٱللَّهُ بِأَعۡلَمَ بِمَا فِي صُدُورِ ٱلۡعَٰلَمِينَ</p>
+<p><span class="text-amber-400 font-bold">(11)</span> وَلَيَعۡلَمَنَّ ٱللَّهُ ٱلَّذِينَ ءَامَنُواْ وَلَيَعۡلَمَنَّ ٱلۡمُنَٰفِقِينَ</p>
+<p><span class="text-amber-400 font-bold">(12)</span> وَقَالَ ٱلَّذِينَ كَفَرُواْ لِلَّذِينَ ءَامَنُواْ ٱتَّبِعُواْ سَبِيلَنَا وَلۡنَحۡمِلۡ خَطَٰيَٰكُمۡ وَمَا هُم بِحَٰمِلِينَ مِنۡ خَطَٰيَٰهُم مِّن شَيۡءٍۖ إِنَّهُمۡ لَكَٰذِبُونَ</p>
+<p><span class="text-amber-400 font-bold">(13)</span> وَلَيَحۡمِلُنَّ أَثۡقَالَهُمۡ وَأَثۡقَالٗا مَّعَ أَثۡقَالِهِمۡۖ وَلَيُسۡـَٔلُنَّ يَوۡمَ ٱلۡقِيَٰمَةِ عَمَّا كَانُواْ يَفۡتَرُونَ</p>
+<p><span class="text-amber-400 font-bold">(14)</span> وَلَقَدۡ أَرۡسَلۡنَا نُوحًا إِلَىٰ قَوۡمِهِۦ فَلَبِثَ فِيهِمۡ أَلۡفَ سَنَةٍ إِلَّا خَمۡسِينَ عَامٗا فَأَخَذَهُمُ ٱلطُّوفَانُ وَهُمۡ ظَٰلِمُونَ</p>
+</div>
+</div>
+</div>
+
+<!-- Slide 4: Verses 15-28 -->
+<div class="slide" id="slide4">
+<div class="absolute inset-0 bg-cover bg-center" style="background-image: url(https://sfile.chatglm.cn/images-ppt/48c9d45c75a9.jpg)"></div>
+<div class="absolute inset-0 bg-gradient-to-bl from-blue-900/85 via-blue-950/90 to-slate-900/90"></div>
+<div class="slide-header relative z-10 flex items-center justify-between px-16 border-b border-amber-400/30">
+<h1 class="title-font text-[34px] font-bold text-amber-300">سورة العنكبوت</h1>
+<div class="flex items-center gap-3">
+<i class="material-icons text-amber-400 text-3xl">menu_book</i>
+<span class="body-font text-white/70 text-lg">الآيات 15-28</span>
+</div>
+</div>
+<div class="slide-content relative z-10 px-16 py-4">
+<div class="title-font text-[20px] leading-[1.7] text-white/95 space-y-1" dir="rtl">
+<p><span class="text-amber-400 font-bold">(15)</span> فَأَنجَيۡنَٰهُ وَأَصۡحَٰبَ ٱلسَّفِينَةِ وَجَعَلۡنَٰهَآ ءَايَةٗ لِّلۡعَٰلَمِينَ</p>
+<p><span class="text-amber-400 font-bold">(16)</span> وَإِبۡرَٰهِيمَ إِذۡ قَالَ لِقَوۡمِهِ ٱعۡبُدُواْ ٱللَّهَ وَٱتَّقُوهُۖ ذَٰلِكُمۡ خَيۡرٞ لَّكُمۡ إِن كُنتُمۡ تَعۡلَمُونَ</p>
+<p><span class="text-amber-400 font-bold">(17)</span> إِنَّمَا تَعۡبُدُونَ مِن دُونِ ٱللَّهِ أَوۡثَٰنٗا وَتَخۡلُقُونَ إِفۡكٗاۚ إِنَّ ٱلَّذِينَ تَعۡبُدُونَ مِن دُونِ ٱللَّهِ لَا يَمۡلِكُونَ لَكُمۡ رِزۡقٗا فَٱبۡتَغُواْ عِندَ ٱللَّهِ ٱلرِّزۡقَ وَٱعۡبُدُوهُ وَٱشۡكُرُواْ لَهُۥٓۖ إِلَيۡهِ تُرۡجَعُونَ</p>
+<p><span class="text-amber-400 font-bold">(18)</span> وَإِن تُكَذِّبُواْ فَقَدۡ كَذَّبَ أُمَمٞ مِّن قَبۡلِكُمۡۖ وَمَا عَلَى ٱلرَّسُولِ إِلَّا ٱلۡبَلَٰغُ ٱلۡمُبِينُ</p>
+<p><span class="text-amber-400 font-bold">(19)</span> أَوَلَمۡ يَرَوۡاْ كَيۡفَ يُبۡدِئُ ٱللَّهُ ٱلۡخَلۡقَ ثُمَّ يُعِيدُهُۥٓۚ إِنَّ ذَٰلِكَ عَلَى ٱللَّهِ يَسِيرٞ</p>
+<p><span class="text-amber-400 font-bold">(20)</span> قُلۡ سِيرُواْ فِي ٱلۡأَرۡضِ فَٱنظُرُواْ كَيۡفَ بَدَأَ ٱلۡخَلۡقَۚ ثُمَّ ٱللَّهُ يُنشِئُ ٱلنَّشۡأَةَ ٱلۡأٓخِرَةَۚ إِنَّ ٱللَّهَ عَلَىٰ كُلِّ شَيۡءٖ قَدِيرٞ</p>
+<p><span class="text-amber-400 font-bold">(21)</span> يُعَذِّبُ مَن يَشَآءُ وَيَرۡحَمُ مَن يَشَآءُۖ وَإِلَيۡهِ تُقۡلَبُونَ</p>
+<p><span class="text-amber-400 font-bold">(22)</span> وَمَآ أَنتُم بِمُعۡجِزِينَ فِي ٱلۡأَرۡضِ وَلَا فِي ٱلسَّمَآءِۖ وَمَا لَكُم مِّن دُونِ ٱللَّهِ مِن وَلِيّٖ وَلَا نَصِيرٖ</p>
+<p><span class="text-amber-400 font-bold">(23)</span> وَٱلَّذِينَ كَفَرُواْ بِـَٔايَٰتِ ٱللَّهِ وَلِقَآئِهِۦٓ أُوْلَٰٓئِكَ يَئِسُواْ مِن رَّحۡمَتِي وَأُوْلَٰٓئِكَ لَهُمۡ عَذَابٌ أَلِيمٞ</p>
+<p><span class="text-amber-400 font-bold">(24)</span> فَمَا كَانَ جَوَابَ قَوۡمِهِۦٓ إِلَّآ أَن قَالُواْ ٱقۡتُلُوهُ أَوۡ حَرِّقُوهُ فَأَنجَىٰهُ ٱللَّهُ مِنَ ٱلنَّارِۚ إِنَّ فِي ذَٰلِكَ لَأٓيَٰتٖ لِّقَوۡمٖ يُؤۡمِنُونَ</p>
+<p><span class="text-amber-400 font-bold">(25)</span> وَقَالَ إِنَّمَا ٱتَّخَذۡتُم مِّن دُونِ ٱللَّهِ أَوۡثَٰنٗا مَّوَدَّةَ بَيۡنِكُمۡ فِي ٱلۡحَيَوٰةِ ٱلدُّنۡيَاۖ ثُمَّ يَوۡمَ ٱلۡقِيَٰمَةِ يَكۡفُرُ بَعۡضُكُم بِبَعۡضٖ وَيَلۡعَنُ بَعۡضُكُم بَعۡضٗا وَمَأۡوَىٰكُمُ ٱلنَّارُ وَمَا لَكُم مِّن نَّٰصِرِينَ</p>
+<p><span class="text-amber-400 font-bold">(26)</span> ۞ فَـَٔامَنَ لَهُۥ لُوطٞۘ وَقَالَ إِنِّي مُهَاجِرٌ إِلَىٰ رَبِّيٓۖ إِنَّهُۥ هُوَ ٱلۡعَزِيزُ ٱلۡحَكِيمُ</p>
+<p><span class="text-amber-400 font-bold">(27)</span> وَوَهَبۡنَا لَهُۥٓ إِسۡحَٰقَ وَيَعۡقُوبَ وَجَعَلۡنَا فِي ذُرِّيَّتِهِ ٱلنُّبُوَّةَ وَٱلۡكِتَٰبَ وَءَاتَيۡنَٰهُ أَجۡرَهُۥ فِي ٱلدُّنۡيَاۖ وَإِنَّهُۥ فِي ٱلۡأٓخِرَةِ لَمِنَ ٱلصَّٰلِحِينَ</p>
+<p><span class="text-amber-400 font-bold">(28)</span> وَلُوطًا إِذۡ قَالَ لِقَوۡمِهِۦٓ إِنَّكُمۡ لَتَأۡتُونَ ٱلۡفَٰحِشَةَ مَا سَبَقَكُم بِهَا مِنۡ أَحَدٖ مِّنَ ٱلۡعَٰلَمِينَ</p>
+</div>
+</div>
+</div>
+
+<!-- Slide 5: Verses 29-42 -->
+<div class="slide" id="slide5">
+<div class="absolute inset-0 bg-cover bg-center" style="background-image: url(https://sfile.chatglm.cn/images-ppt/48c9d45c75a9.jpg)"></div>
+<div class="absolute inset-0 bg-gradient-to-bl from-blue-900/85 via-blue-950/90 to-slate-900/90"></div>
+<div class="slide-header relative z-10 flex items-center justify-between px-16 border-b border-amber-400/30">
+<h1 class="title-font text-[34px] font-bold text-amber-300">سورة العنكبوت</h1>
+<div class="flex items-center gap-3">
+<i class="material-icons text-amber-400 text-3xl">menu_book</i>
+<span class="body-font text-white/70 text-lg">الآيات 29-42</span>
+</div>
+</div>
+<div class="slide-content relative z-10 px-16 py-4">
+<div class="title-font text-[20px] leading-[1.7] text-white/95 space-y-1" dir="rtl">
+<p><span class="text-amber-400 font-bold">(29)</span> أَئِنَّكُمۡ لَتَأۡتُونَ ٱلرِّجَالَ وَتَقۡطَعُونَ ٱلسَّبِيلَ وَتَأۡتُونَ فِي نَادِيكُمُ ٱلۡمُنكَرَۖ فَمَا كَانَ جَوَابَ قَوۡمِهِۦٓ إِلَّآ أَن قَالُواْ ٱئۡتِنَا بِعَذَابِ ٱللَّهِ إِن كُنتَ مِنَ ٱلصَّٰدِقِينَ</p>
+<p><span class="text-amber-400 font-bold">(30)</span> قَالَ رَبِّ ٱنصُرۡنِي عَلَى ٱلۡقَوۡمِ ٱلۡمُفۡسِدِينَ</p>
+<p><span class="text-amber-400 font-bold">(31)</span> وَلَمَّا جَآءَتۡ رُسُلُنَآ إِبۡرَٰهِيمَ بِٱلۡبُشۡرَىٰ قَالُوٓاْ إِنَّا مُهۡلِكُوٓاْ أَهۡلِ هَٰذِهِ ٱلۡقَرۡيَةِۖ إِنَّ أَهۡلَهَا كَانُواْ ظَٰلِمِينَ</p>
+<p><span class="text-amber-400 font-bold">(32)</span> قَالَ إِنَّ فِيهَا لُوطٗاۚ قَالُواْ نَحۡنُ أَعۡلَمُ بِمَن فِيهَاۖ لَنُنَجِّيَنَّهُۥ وَأَهۡلَهُۥٓ إِلَّا ٱمۡرَأَتَهُۥ كَانَتۡ مِنَ ٱلۡغَٰبِرِينَ</p>
+<p><span class="text-amber-400 font-bold">(33)</span> وَلَمَّآ أَن جَآءَتۡ رُسُلُنَا لُوطٗا سِيٓءَ بِهِمۡ وَضَاقَ بِهِمۡ ذَرۡعٗاۖ وَقَالُواْ لَا تَخَفۡ وَلَا تَحۡزَنۡ إِنَّا مُنَجُّوكَ وَأَهۡلَكَ إِلَّا ٱمۡرَأَتَكَ كَانَتۡ مِنَ ٱلۡغَٰبِرِينَ</p>
+<p><span class="text-amber-400 font-bold">(34)</span> إِنَّا مُنزِلُونَ عَلَىٰٓ أَهۡلِ هَٰذِهِ ٱلۡقَرۡيَةِ رِجۡزٗا مِّنَ ٱلسَّمَآءِ بِمَا كَانُواْ يَفۡسُقُونَ</p>
+<p><span class="text-amber-400 font-bold">(35)</span> وَلَقَد تَّرَكۡنَا مِنۡهَآ ءَايَةَۢ بَيِّنَةٗ لِّقَوۡمٖ يَعۡقِلُونَ</p>
+<p><span class="text-amber-400 font-bold">(36)</span> وَإِلَىٰ مَدۡيَنَ أَخَاهُمۡ شُعَيۡبٗا فَقَالَ يَٰقَوۡمِ ٱعۡبُدُواْ ٱللَّهَ وَٱرۡجُواْ ٱلۡيَوۡمَ ٱلۡأٓخِرَ وَلَا تَعۡثَوۡاْ فِي ٱلۡأَرۡضِ مُفۡسِدِينَ</p>
+<p><span class="text-amber-400 font-bold">(37)</span> فَكَذَّبُوهُ فَأَخَذَتۡهُمُ ٱلرَّجۡفَةُ فَأَصۡبَحُواْ فِي دَارِهِمۡ جَٰثِمِينَ</p>
+<p><span class="text-amber-400 font-bold">(38)</span> وَعَادٗا وَثَمُودَاْ وَقَد تَّبَيَّنَ لَكُم مِّن مَّسَٰكِنِهِمۡۖ وَزَيَّنَ لَهُمُ ٱلشَّيۡطَٰنُ أَعۡمَٰلَهُمۡ فَصَدَّهُمۡ عَنِ ٱلسَّبِيلِ وَكَانُواْ مُسۡتَبۡصِرِينَ</p>
+<p><span class="text-amber-400 font-bold">(39)</span> وَقَٰرُونَ وَفِرۡعَوۡنَ وَهَٰمَٰنَۖ وَلَقَدۡ جَآءَهُم مُّوسَىٰ بِٱلۡبَيِّنَٰتِ فَٱسۡتَكۡبَرُواْ فِي ٱلۡأَرۡضِ وَمَا كَانُواْ سَٰبِقِينَ</p>
+<p><span class="text-amber-400 font-bold">(40)</span> فَكُلًّا أَخَذۡنَا بِذَنۢبِهِۦۖ فَمِنۡهُم مَّنۡ أَرۡسَلۡنَا عَلَيۡهِ حَاصِبٗا وَمِنۡهُم مَّنۡ أَخَذَتۡهُ ٱلصَّيۡحَةُ وَمِنۡهُم مَّنۡ خَسَفۡنَا بِهِ ٱلۡأَرۡضَ وَمِنۡهُم مَّنۡ أَغۡرَقۡنَاۚ وَمَا كَانَ ٱللَّهُ لِيَظۡلِمَهُمۡ وَلَٰكِن كَانُوٓاْ أَنفُسَهُمۡ يَظۡلِمُونَ</p>
+<p><span class="text-amber-400 font-bold">(41)</span> مَثَلُ ٱلَّذِينَ ٱتَّخَذُواْ مِن دُونِ ٱللَّهِ أَوۡلِيَآءَ كَمَثَلِ ٱلۡعَنكَبُوتِ ٱتَّخَذَتۡ بَيۡتٗاۖ وَإِنَّ أَوۡهَنَ ٱلۡبُيُوتِ لَبَيۡتُ ٱلۡعَنكَبُوتِۚ لَوۡ كَانُواْ يَعۡلَمُونَ</p>
+<p><span class="text-amber-400 font-bold">(42)</span> إِنَّ ٱللَّهَ يَعۡلَمُ مَا يَدۡعُونَ مِن دُونِهِۦ مِن شَيۡءٖۚ وَهُوَ ٱلۡعَزِيزُ ٱلۡحَكِيمُ</p>
+</div>
+</div>
+</div>
+
+<!-- Slide 6: Verses 43-56 -->
+<div class="slide" id="slide6">
+<div class="absolute inset-0 bg-cover bg-center" style="background-image: url(https://sfile.chatglm.cn/images-ppt/48c9d45c75a9.jpg)"></div>
+<div class="absolute inset-0 bg-gradient-to-bl from-blue-900/85 via-blue-950/90 to-slate-900/90"></div>
+<div class="slide-header relative z-10 flex items-center justify-between px-16 border-b border-amber-400/30">
+<h1 class="title-font text-[34px] font-bold text-amber-300">سورة العنكبوت</h1>
+<div class="flex items-center gap-3">
+<i class="material-icons text-amber-400 text-3xl">menu_book</i>
+<span class="body-font text-white/70 text-lg">الآيات 43-56</span>
+</div>
+</div>
+<div class="slide-content relative z-10 px-16 py-4">
+<div class="title-font text-[20px] leading-[1.7] text-white/95 space-y-1" dir="rtl">
+<p><span class="text-amber-400 font-bold">(43)</span> وَتِلۡكَ ٱلۡأَمۡثَٰلُ نَضۡرِبُهَا لِلنَّاسِۖ وَمَا يَعۡقِلُهَآ إِلَّا ٱلۡعَٰلِمُونَ</p>
+<p><span class="text-amber-400 font-bold">(44)</span> خَلَقَ ٱللَّهُ ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضَ بِٱلۡحَقِّۚ إِنَّ فِي ذَٰلِكَ لَأٓيَةٗ لِّلۡمُؤۡمِنِينَ</p>
+<p><span class="text-amber-400 font-bold">(45)</span> ٱتۡلُ مَآ أُوحِيَ إِلَيۡكَ مِنَ ٱلۡكِتَٰبِ وَأَقِمِ ٱلصَّلَوٰةَۖ إِنَّ ٱلصَّلَوٰةَ تَنۡهَىٰ عَنِ ٱلۡفَحۡشَآءِ وَٱلۡمُنكَرِۗ وَلَذِكۡرُ ٱللَّهِ أَكۡبَرُۗ وَٱللَّهُ يَعۡلَمُ مَا تَصۡنَعُونَ</p>
+<p><span class="text-amber-400 font-bold">(46)</span> ۞ وَلَا تُجَٰدِلُوٓاْ أَهۡلَ ٱلۡكِتَٰبِ إِلَّا بِٱلَّتِي هِيَ أَحۡسَنُ إِلَّا ٱلَّذِينَ ظَلَمُواْ مِنۡهُمۡۖ وَقُولُوٓاْ ءَامَنَّا بِٱلَّذِيٓ أُنزِلَ إِلَيۡنَا وَأُنزِلَ إِلَيۡكُمۡ وَإِلَٰهُنَا وَإِلَٰهُكُمۡ وَٰحِدٞ وَنَحۡنُ لَهُۥ مُسۡلِمُونَ</p>
+<p><span class="text-amber-400 font-bold">(47)</span> وَكَذَٰلِكَ أَنزَلۡنَآ إِلَيۡكَ ٱلۡكِتَٰبَۚ فَٱلَّذِينَ ءَاتَيۡنَٰهُمُ ٱلۡكِتَٰبَ يُؤۡمِنُونَ بِهِۦۖ وَمِنۡ هَٰٓؤُلَآءِ مَن يُؤۡمِنُ بِهِۦۚ وَمَا يَجۡحَدُ بِـَٔايَٰتِنَآ إِلَّا ٱلۡكَٰفِرُونَ</p>
+<p><span class="text-amber-400 font-bold">(48)</span> وَمَا كُنتَ تَتۡلُواْ مِن قَبۡلِهِۦ مِن كِتَٰبٖ وَلَا تَخُطُّهُۥ بِيَمِينِكَۖ إِذٗا لَّٱرۡتَابَ ٱلۡمُبۡطِلُونَ</p>
+<p><span class="text-amber-400 font-bold">(49)</span> بَلۡ هُوَ ءَايَٰتُۢ بَيِّنَٰتٞ فِي صُدُورِ ٱلَّذِينَ أُوتُواْ ٱلۡعِلۡمَۚ وَمَا يَجۡحَدُ بِـَٔايَٰتِنَآ إِلَّا ٱلظَّٰلِمُونَ</p>
+<p><span class="text-amber-400 font-bold">(50)</span> وَقَالُواْ لَوۡلَآ أُنزِلَ عَلَيۡهِ ءَايَٰتٞ مِّن رَّبِّهِۦۚ قُلۡ إِنَّمَا ٱلۡأٓيَٰتُ عِندَ ٱللَّهِ وَإِنَّمَآ أَنَا۠ نَذِيرٞ مُّبِينٌ</p>
+<p><span class="text-amber-400 font-bold">(51)</span> أَوَلَمۡ يَكۡفِهِمۡ أَنَّآ أَنزَلۡنَا عَلَيۡكَ ٱلۡكِتَٰبَ يُتۡلَىٰ عَلَيۡهِمۡۚ إِنَّ فِي ذَٰلِكَ لَرَحۡمَةٗ وَذِكۡرَىٰ لِقَوۡمٖ يُؤۡمِنُونَ</p>
+<p><span class="text-amber-400 font-bold">(52)</span> قُلۡ كَفَىٰ بِٱللَّهِ بَيۡنِي وَبَيۡنَكُمۡ شَهِيدٗاۖ يَعۡلَمُ مَا فِي ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضِۗ وَٱلَّذِينَ ءَامَنُواْ بِٱلۡبَٰطِلِ وَكَفَرُواْ بِٱللَّهِ أُوْلَٰٓئِكَ هُمُ ٱلۡخَٰسِرُونَ</p>
+<p><span class="text-amber-400 font-bold">(53)</span> وَيَسۡتَعۡجِلُونَكَ بِٱلۡعَذَابِ وَلَوۡلَآ أَجَلٞ مُّسَمًّى لَّجَآءَهُمُ ٱلۡعَذَابُۚ وَلَيَأۡتِيَنَّهُم بَغۡتَةٗ وَهُمۡ لَا يَشۡعُرُونَ</p>
+<p><span class="text-amber-400 font-bold">(54)</span> يَسۡتَعۡجِلُونَكَ بِٱلۡعَذَابِ وَإِنَّ جَهَنَّمَ لَمُحِيطَةُۢ بِٱلۡكَٰفِرِينَ</p>
+<p><span class="text-amber-400 font-bold">(55)</span> يَوۡمَ يَغۡشَىٰهُمُ ٱلۡعَذَابُ مِن فَوۡقِهِمۡ وَمِن تَحۡتِ أَرۡجُلِهِمۡ وَيَقُولُ ذُوقُواْ مَا كُنتُمۡ تَعۡمَلُونَ</p>
+<p><span class="text-amber-400 font-bold">(56)</span> يَٰعِبَادِيَ ٱلَّذِينَ ءَامَنُوٓاْ إِنَّ أَرۡضِي وَٰسِعَةٞ فَإِيَّٰيَ فَٱعۡبُدُونِ</p>
+</div>
+</div>
+</div>
+
+<!-- Slide 7: Verses 57-69 -->
+<div class="slide" id="slide7">
+<div class="absolute inset-0 bg-cover bg-center" style="background-image: url(https://sfile.chatglm.cn/images-ppt/48c9d45c75a9.jpg)"></div>
+<div class="absolute inset-0 bg-gradient-to-bl from-blue-900/85 via-blue-950/90 to-slate-900/90"></div>
+<div class="slide-header relative z-10 flex items-center justify-between px-16 border-b border-amber-400/30">
+<h1 class="title-font text-[34px] font-bold text-amber-300">سورة العنكبوت</h1>
+<div class="flex items-center gap-3">
+<i class="material-icons text-amber-400 text-3xl">menu_book</i>
+<span class="body-font text-white/70 text-lg">الآيات 57-69</span>
+</div>
+</div>
+<div class="slide-content relative z-10 px-16 py-4">
+<div class="title-font text-[20px] leading-[1.7] text-white/95 space-y-1" dir="rtl">
+<p><span class="text-amber-400 font-bold">(57)</span> كُلُّ نَفۡسٖ ذَآئِقَةُ ٱلۡمَوۡتِۖ ثُمَّ إِلَيۡنَا تُرۡجَعُونَ</p>
+<p><span class="text-amber-400 font-bold">(58)</span> وَٱلَّذِينَ ءَامَنُواْ وَعَمِلُواْ ٱلصَّٰلِحَٰتِ لَنُبَوِّئَنَّهُم مِّنَ ٱلۡجَنَّةِ غُرَفٗا تَجۡرِي مِن تَحۡتِهَا ٱلۡأَنۡهَٰرُ خَٰلِدِينَ فِيهَاۚ نِعۡمَ أَجۡرُ ٱلۡعَٰمِلِينَ</p>
+<p><span class="text-amber-400 font-bold">(59)</span> ٱلَّذِينَ صَبَرُواْ وَعَلَىٰ رَبِّهِمۡ يَتَوَكَّلُونَ</p>
+<p><span class="text-amber-400 font-bold">(60)</span> وَكَأَيِّن مِّن دَآبَّةٖ لَّا تَحۡمِلُ رِزۡقَهَا ٱللَّهُ يَرۡزُقُهَا وَإِيَّاكُمۡۚ وَهُوَ ٱلسَّمِيعُ ٱلۡعَلِيمُ</p>
+<p><span class="text-amber-400 font-bold">(61)</span> وَلَئِن سَأَلۡتَهُم مَّنۡ خَلَقَ ٱلسَّمَٰوَٰتِ وَٱلۡأَرۡضَ وَسَخَّرَ ٱلشَّمۡسَ وَٱلۡقَمَرَ لَيَقُولُنَّ ٱللَّهُۖ فَأَنَّىٰ يُؤۡفَكُونَ</p>
+<p><span class="text-amber-400 font-bold">(62)</span> ٱللَّهُ يَبۡسُطُ ٱلرِّزۡقَ لِمَن يَشَآءُ مِنۡ عِبَادِهِۦ وَيَقۡدِرُ لَهُۥٓۚ إِنَّ ٱللَّهَ بِكُلِّ شَيۡءٍ عَلِيمٞ</p>
+<p><span class="text-amber-400 font-bold">(63)</span> وَلَئِن سَأَلۡتَهُم مَّن نَّزَّلَ مِنَ ٱلسَّمَآءِ مَآءٗ فَأَحۡيَا بِهِ ٱلۡأَرۡضَ مِنۢ بَعۡدِ مَوۡتِهَا لَيَقُولُنَّ ٱللَّهُۚ قُلِ ٱلۡحَمۡدُ لِلَّهِۚ بَلۡ أَكۡثَرُهُمۡ لَا يَعۡقِلُونَ</p>
+<p><span class="text-amber-400 font-bold">(64)</span> وَمَا هَٰذِهِ ٱلۡحَيَوٰةُ ٱلدُّنۡيَآ إِلَّا لَهۡوٞ وَلَعِبٞۚ وَإِنَّ ٱلدَّارَ ٱلۡأٓخِرَةَ لَهِيَ ٱلۡحَيَوَانُۚ لَوۡ كَانُواْ يَعۡلَمُونَ</p>
+<p><span class="text-amber-400 font-bold">(65)</span> فَإِذَا رَكِبُواْ فِي ٱلۡفُلۡكِ دَعَوُاْ ٱللَّهَ مُخۡلِصِينَ لَهُ ٱلدِّينَ فَلَمَّا نَجَّىٰهُمۡ إِلَى ٱلۡبَرِّ إِذَا هُمۡ يُشۡرِكُونَ</p>
+<p><span class="text-amber-400 font-bold">(66)</span> لِيَكۡفُرُواْ بِمَآ ءَاتَيۡنَٰهُمۡ وَلِيَتَمَتَّعُواْۚ فَسَوۡفَ يَعۡلَمُونَ</p>
+<p><span class="text-amber-400 font-bold">(67)</span> أَوَلَمۡ يَرَوۡاْ أَنَّا جَعَلۡنَا حَرَمًا ءَامِنٗا وَيُتَخَطَّفُ ٱلنَّاسُ مِنۡ حَوۡلِهِمۡۚ أَفَبِٱلۡبَٰطِلِ يُؤۡمِنُونَ وَبِنِعۡمَةِ ٱللَّهِ يَكۡفُرُونَ</p>
+<p><span class="text-amber-400 font-bold">(68)</span> وَمَنۡ أَظۡلَمُ مِمَّنِ ٱفۡتَرَىٰ عَلَى ٱللَّهِ كَذِبًا أَوۡ كَذَّبَ بِٱلۡحَقِّ لَمَّا جَآءَهُۥٓ ۚ أَلَيۡسَ فِي جَهَنَّمَ مَثۡوًى لِّلۡكَٰفِرِينَ</p>
+<p><span class="text-amber-400 font-bold">(69)</span> وَٱلَّذِينَ جَٰهَدُواْ فِينَا لَنَهۡدِيَنَّهُمۡ سُبُلَنَاۚ وَإِنَّ ٱللَّهَ لَمَعَ ٱلۡمُحۡسِنِينَ</p>
+</div>
+</div>
+</div>
+
+<!-- Slide 8: Reason for Naming -->
+<div class="slide" id="slide8">
+<div class="absolute inset-0 bg-cover bg-center" style="background-image: url(https://sfile.chatglm.cn/images-ppt/75793230af12.jpeg)"></div>
+<div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(13, 71, 161, 0.92) 0%, rgba(21, 101, 192, 0.88) 50%, rgba(25, 118, 210, 0.85) 100%)"></div>
+<div class="slide-header relative z-10 flex items-center justify-between px-16 border-b border-amber-400/30">
+<h1 class="title-font text-[34px] font-bold text-amber-300">سبب التسمية</h1>
+<div class="flex items-center gap-3">
+<i class="material-icons text-amber-400 text-3xl">lightbulb</i>
+<span class="body-font text-white/70 text-lg">الآية 41</span>
+</div>
+</div>
+<div class="slide-content relative z-10 flex items-center px-16 py-8">
+<div class="w-full">
+<div class="bg-white/10 backdrop-blur-md rounded-2xl border border-amber-400/30 p-8 mb-6">
+<div class="flex items-start gap-4 mb-4">
+<div class="flex-shrink-0 w-14 h-14 rounded-full bg-amber-400/20 flex items-center justify-center">
+<i class="material-icons text-amber-300 text-3xl">menu_book</i>
+</div>
+<div class="flex-grow">
+<h2 class="title-font text-2xl font-bold text-amber-200 mb-4">العنكبوت - The Spider</h2>
+<p class="title-font text-xl leading-relaxed text-white/95">
+<span class="text-amber-400 font-bold">مَثَلُ</span> ٱلَّذِينَ ٱتَّخَذُواْ مِن دُونِ ٱللَّهِ أَوۡلِيَآءَ <span class="text-amber-400 font-bold">كَمَثَلِ</span> ٱلۡعَنكَبُوتِ ٱتَّخَذَتۡ بَيۡتٗاۖ وَإِنَّ <span class="text-amber-400 font-bold">أَوۡهَنَ</span> ٱلۡبُيُوتِ <span class="text-amber-400 font-bold">لَبَيۡتُ</span> ٱلۡعَنكَبُوتِۚ لَوۡ كَانُواْ يَعۡلَمُونَ
+</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-white/10 backdrop-blur-md rounded-xl border border-amber-400/30 p-5">
+<div class="flex items-center gap-3 mb-3">
+<i class="material-icons text-amber-300 text-2xl">arrow_back</i>
+<h3 class="body-font text-lg font-bold text-white">المثل والمعنى</h3>
+</div>
+<p class="body-font text-base text-white/90 leading-relaxed">
+بيت العنكبوت أضعف البيوت على الإطلاق، لا يحمي من الحر ولا من البرد ولا من المطر. كذلك الأوثان التي يعبدها المشركون لا تضر ولا تنفع ولا تملك لهم رزقًا.
+</p>
+</div>
+<div class="bg-white/10 backdrop-blur-md rounded-xl border border-amber-400/30 p-5">
+<div class="flex items-center gap-3 mb-3">
+<i class="material-icons text-amber-300 text-2xl">insights</i>
+<h3 class="body-font text-lg font-bold text-white">الدرس والعبرة</h3>
+</div>
+<p class="body-font text-base text-white/90 leading-relaxed">
+الإيمان بالله وحده هو الأساس القوي والمتين الذي يحمي الإنسان في الدنيا والآخرة، أما الإيمان بالأوثان والآلهة الزائفة فمثل الإيمان ببيت العنكبوت الضعيف.
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Slides 9-14 continue with same structure -->
+<!-- Slide 9: Main Message -->
+<div class="slide" id="slide9">
+<div class="absolute inset-0 bg-cover bg-center" style="background-image: url(https://sfile.chatglm.cn/images-ppt/48c9d45c75a9.jpg)"></div>
+<div class="absolute inset-0 bg-gradient-to-bl from-blue-900/90 via-blue-950/95 to-slate-900/90"></div>
+<div class="slide-header relative z-10 flex items-center justify-between px-16 border-b border-amber-400/30">
+<h1 class="title-font text-[34px] font-bold text-amber-300">الرسالة الرئيسية للسورة</h1>
+<div class="flex items-center gap-3">
+<i class="material-icons text-amber-400 text-3xl">auto_stories</i>
+<span class="body-font text-white/70 text-lg">الابتلاء والتمحيص</span>
+</div>
+</div>
+<div class="slide-content relative z-10 px-16 py-6">
+<div class="bg-gradient-to-br from-amber-400/15 to-amber-500/10 backdrop-blur-md rounded-2xl border-2 border-amber-400/40 p-6 mb-4">
+<p class="title-font text-xl leading-relaxed text-white/95">
+<span class="text-amber-300 font-bold">أَحَسِبَ ٱلنَّاسُ أَن يُتۡرَكُوٓاْ أَن يَقُولُوٓاْ ءَامَنَّا وَهُمۡ لَا يُفۡتَنُونَ</span> - الإيمان ليس كلمة تُقال فقط، بل هو منهج حياة يُختبر بالابتلاء والمحن
+</p>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-white/10 backdrop-blur-md rounded-xl border border-amber-400/30 p-4">
+<h3 class="body-font text-lg font-bold text-white mb-2">التمييز بين الصادق والكاذب</h3>
+<p class="body-font text-sm text-white/90">الابتلاء يميز المؤمن الصادق من المنافق</p>
+</div>
+<div class="bg-white/10 backdrop-blur-md rounded-xl border border-amber-400/30 p-4">
+<h3 class="body-font text-lg font-bold text-white mb-2">الله يعلم ما في الصدور</h3>
+<p class="body-font text-sm text-white/90">الله عليم ببواطن الأمور ونوايا العباد</p>
+</div>
+<div class="bg-white/10 backdrop-blur-md rounded-xl border border-amber-400/30 p-4">
+<h3 class="body-font text-lg font-bold text-white mb-2">الصبر مفتاح الفلاح</h3>
+<p class="body-font text-sm text-white/90">الصبر على الابتلاء طريق النجاح في الدنيا والآخرة</p>
+</div>
+<div class="bg-white/10 backdrop-blur-md rounded-xl border border-amber-400/30 p-4">
+<h3 class="body-font text-lg font-bold text-white mb-2">الهداية للمجاهدين</h3>
+<p class="body-font text-sm text-white/90">من جاهد في الله هداه الله سبل الخير</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Slide 10: Stories of Prophets -->
+<div class="slide" id="slide10">
+<div class="absolute inset-0 bg-cover bg-center" style="background-image: url(https://sfile.chatglm.cn/images-ppt/48c9d45c75a9.jpg)"></div>
+<div class="absolute inset-0 bg-gradient-to-bl from-blue-900/90 via-blue-950/95 to-slate-900/90"></div>
+<div class="slide-header relative z-10 flex items-center justify-between px-16 border-b border-amber-400/30">
+<h1 class="title-font text-[34px] font-bold text-amber-300">قصص الأنبياء في السورة</h1>
+<div class="flex items-center gap-3">
+<i class="material-icons text-amber-400 text-3xl">auto_stories</i>
+<span class="body-font text-white/70 text-lg">القدوة والأسوة</span>
+</div>
+</div>
+<div class="slide-content relative z-10 px-16 py-4">
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-white/10 backdrop-blur-md rounded-lg border border-amber-400/30 p-4">
+<h3 class="title-font text-xl font-bold text-blue-200 mb-2">نوح عليه السلام</h3>
+<p class="body-font text-sm text-white/90 mb-1">الآيات 14-15</p>
+<p class="body-font text-sm text-white/80">950 سنة من الدعوة والصبر على قومه</p>
+</div>
+<div class="bg-white/10 backdrop-blur-md rounded-lg border border-amber-400/30 p-4">
+<h3 class="title-font text-xl font-bold text-emerald-200 mb-2">إبراهيم عليه السلام</h3>
+<p class="body-font text-sm text-white/90 mb-1">الآيات 16-27</p>
+<p class="body-font text-sm text-white/80">الدعوة إلى التوحيد ونبذ الأوثان</p>
+</div>
+<div class="bg-white/10 backdrop-blur-md rounded-lg border border-amber-400/30 p-4">
+<h3 class="title-font text-xl font-bold text-amber-200 mb-2">لوط عليه السلام</h3>
+<p class="body-font text-sm text-white/90 mb-1">الآيات 28-35</p>
+<p class="body-font text-sm text-white/80">التحذير من الفاحشة والمنكر</p>
+</div>
+<div class="bg-white/10 backdrop-blur-md rounded-lg border border-amber-400/30 p-4">
+<h3 class="title-font text-xl font-bold text-purple-200 mb-2">شعيب عليه السلام</h3>
+<p class="body-font text-sm text-white/90 mb-1">الآيات 36-37</p>
+<p class="body-font text-sm text-white/80">الأمر بالعدل والنهي عن الفساد</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Slide 11: Lessons and Wisdom -->
+<div class="slide" id="slide11">
+<div class="absolute inset-0 bg-cover bg-center" style="background-image: url(https://sfile.chatglm.cn/images-ppt/48c9d45c75a9.jpg)"></div>
+<div class="absolute inset-0 bg-gradient-to-bl from-blue-900/90 via-blue-950/95 to-slate-900/90"></div>
+<div class="slide-header relative z-10 flex items-center justify-between px-16 border-b border-amber-400/30">
+<h1 class="title-font text-[34px] font-bold text-amber-300">الدروس والحكم</h1>
+<div class="flex items-center gap-3">
+<i class="material-icons text-amber-400 text-3xl">school</i>
+<span class="body-font text-white/70 text-lg">من سورة العنكبوت</span>
+</div>
+</div>
+<div class="slide-content relative z-10 px-16 py-4">
+<div class="grid grid-cols-3 gap-3">
+<div class="bg-white/10 backdrop-blur-md rounded-lg border border-amber-400/30 p-3">
+<h3 class="body-font text-base font-bold text-white mb-2">الإيمان يُختبر</h3>
+<p class="body-font text-xs text-white/90">الإيمان الحقيقي لا يثبت إلا بالابتلاء والمحن</p>
+</div>
+<div class="bg-white/10 backdrop-blur-md rounded-lg border border-amber-400/30 p-3">
+<h3 class="body-font text-base font-bold text-white mb-2">ضعف الآلهة الزائفة</h3>
+<p class="body-font text-xs text-white/90">الأوثان كبيت العنكبوت، لا تنفع ولا تضر</p>
+</div>
+<div class="bg-white/10 backdrop-blur-md rounded-lg border border-amber-400/30 p-3">
+<h3 class="body-font text-base font-bold text-white mb-2">الصبر والتوكل</h3>
+<p class="body-font text-xs text-white/90">الصبر والتوكل على الله سبب للفلاح</p>
+</div>
+<div class="bg-gradient-to-br from-amber-400/20 to-amber-500/10 backdrop-blur-md rounded-lg border border-amber-400/40 p-3">
+<h3 class="body-font text-base font-bold text-amber-100 mb-2">الجهاد في سبيل الله</h3>
+<p class="body-font text-xs text-white/95">من جاهد في الله هداه الله وأعانه</p>
+</div>
+<div class="bg-white/10 backdrop-blur-md rounded-lg border border-amber-400/30 p-3">
+<h3 class="body-font text-base font-bold text-white mb-2">الدنيا زائلة</h3>
+<p class="body-font text-xs text-white/90">الحياة الدنيا لهو ولعب، زائلة فانية</p>
+</div>
+<div class="bg-white/10 backdrop-blur-md rounded-lg border border-amber-400/30 p-3">
+<h3 class="body-font text-base font-bold text-white mb-2">الآخرة هي الحياة الحقيقية</h3>
+<p class="body-font text-xs text-white/90">الدار الآخرة فيها الثواب الدائم</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Slide 12: Practical Applications -->
+<div class="slide" id="slide12">
+<div class="absolute inset-0 bg-cover bg-center" style="background-image: url(https://sfile.chatglm.cn/images-ppt/48c9d45c75a9.jpg)"></div>
+<div class="absolute inset-0 bg-gradient-to-bl from-blue-900/90 via-blue-950/95 to-slate-900/90"></div>
+<div class="slide-header relative z-10 flex items-center justify-between px-16 border-b border-amber-400/30">
+<h1 class="title-font text-[34px] font-bold text-amber-300">التطبيقات العملية</h1>
+<div class="flex items-center gap-3">
+<i class="material-icons text-amber-400 text-3xl">task_alt</i>
+<span class="body-font text-white/70 text-lg">في حياة المسلم</span>
+</div>
+</div>
+<div class="slide-content relative z-10 px-16 py-4">
+<div class="grid grid-cols-3 gap-3">
+<div class="bg-white/10 backdrop-blur-md rounded-lg border border-amber-400/30 p-3">
+<h3 class="body-font text-base font-bold text-white mb-2">الصبر على الابتلاء</h3>
+<p class="body-font text-xs text-white/90">تحمل المصاعب بثبات وثقة بالله</p>
+</div>
+<div class="bg-white/10 backdrop-blur-md rounded-lg border border-amber-400/30 p-3">
+<h3 class="body-font text-base font-bold text-white mb-2">التوكل على الله</h3>
+<p class="body-font text-xs text-white/90">الاعتماد على الله وحده في جميع الأمور</p>
+</div>
+<div class="bg-white/10 backdrop-blur-md rounded-lg border border-amber-400/30 p-3">
+<h3 class="body-font text-base font-bold text-white mb-2">الجهاد والمثابرة</h3>
+<p class="body-font text-xs text-white/90">بذل الجهد في تحسين النفس ومساعدة الآخرين</p>
+</div>
+<div class="bg-white/10 backdrop-blur-md rounded-lg border border-amber-400/30 p-3">
+<h3 class="body-font text-base font-bold text-white mb-2">المحافظة على الصلاة</h3>
+<p class="body-font text-xs text-white/90">إقامة الصلاة بانتظام</p>
+</div>
+<div class="bg-white/10 backdrop-blur-md rounded-lg border border-amber-400/30 p-3">
+<h3 class="body-font text-base font-bold text-white mb-2">بر الوالدين</h3>
+<p class="body-font text-xs text-white/90">الإحسان إلى الوالدين إلا في معصية الله</p>
+</div>
+<div class="bg-gradient-to-br from-amber-400/15 to-amber-500/10 backdrop-blur-md rounded-lg border border-amber-400/40 p-3">
+<h3 class="body-font text-base font-bold text-amber-100 mb-2">العمل للآخرة</h3>
+<p class="body-font text-xs text-white/95">تقديم العمل للدار الباقية</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Slide 13: Key Themes -->
+<div class="slide" id="slide13">
+<div class="absolute inset-0 bg-cover bg-center" style="background-image: url(https://sfile.chatglm.cn/images-ppt/48c9d45c75a9.jpg)"></div>
+<div class="absolute inset-0 bg-gradient-to-bl from-blue-900/85 via-blue-950/90 to-slate-900/90"></div>
+<div class="slide-header relative z-10 flex items-center justify-between px-16 border-b border-amber-400/30">
+<h1 class="title-font text-[34px] font-bold text-amber-300">الموضوعات الرئيسية</h1>
+<div class="flex items-center gap-3">
+<i class="material-icons text-amber-400 text-3xl">auto_stories</i>
+<span class="body-font text-white/70 text-lg">القيم والرسائل</span>
+</div>
+</div>
+<div class="slide-content relative z-10 px-16 py-4">
+<div class="grid grid-cols-3 gap-3">
+<div class="bg-white/10 backdrop-blur-md rounded-lg border border-amber-400/30 p-4">
+<h3 class="title-font text-lg font-bold text-amber-200 mb-2">ابتلاء المؤمنين</h3>
+<p class="body-font text-sm text-white/90">الإيمان الحقيقي يُختبر بالابتلاء والمحن</p>
+</div>
+<div class="bg-white/10 backdrop-blur-md rounded-lg border border-amber-400/30 p-4">
+<h3 class="title-font text-lg font-bold text-amber-200 mb-2">قصص الأنبياء</h3>
+<p class="body-font text-sm text-white/90">نوح وإبراهيم ولوط وشعيب - الصبر مفتاح الفلاح</p>
+</div>
+<div class="bg-white/10 backdrop-blur-md rounded-lg border border-amber-400/30 p-4">
+<h3 class="title-font text-lg font-bold text-amber-200 mb-2">ضعف الآلهة المزيفة</h3>
+<p class="body-font text-sm text-white/90">الأوثان كبيت العنكبوت، لا تملك ضراً ولا نفعاً</p>
+</div>
+<div class="col-span-2 bg-white/10 backdrop-blur-md rounded-lg border border-amber-400/30 p-4">
+<h3 class="title-font text-lg font-bold text-amber-200 mb-2">الصبر والتوكل على الله</h3>
+<p class="body-font text-sm text-white/90">الذين صبروا وعلى ربهم يتوكلون هم الفائزون</p>
+</div>
+<div class="bg-gradient-to-br from-amber-400/20 to-amber-500/10 backdrop-blur-md rounded-lg border border-amber-400/40 p-4">
+<h3 class="title-font text-lg font-bold text-amber-100 mb-2">الهداية للمجاهدين</h3>
+<p class="body-font text-sm text-white/95">مَن جاهد في الله هداه الله سبل الخير</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Slide 14: Conclusion -->
+<div class="slide" id="slide14">
+<div class="absolute inset-0 bg-cover bg-center" style="background-image: url(https://sfile.chatglm.cn/images-ppt/6e434ec75239.jpeg)"></div>
+<div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(13, 71, 161, 0.94) 0%, rgba(21, 101, 192, 0.91) 100%)"></div>
+<div class="slide-header relative z-10 flex items-center justify-between px-16 border-b border-amber-400/30">
+<h1 class="title-font text-[34px] font-bold text-amber-300">الخلاصة</h1>
+<div class="flex items-center gap-3">
+<i class="material-icons text-amber-400 text-3xl">stars</i>
+<span class="body-font text-white/70 text-lg">الآية 69</span>
+</div>
+</div>
+<div class="slide-content relative z-10 px-16 py-6">
+<div class="bg-gradient-to-br from-amber-400/15 to-amber-500/10 backdrop-blur-md rounded-2xl border-2 border-amber-400/40 p-8 mb-4">
+<h2 class="title-font text-3xl font-bold text-amber-100 mb-4 text-center">الهداية للمجاهدين</h2>
+<p class="title-font text-2xl leading-relaxed text-center text-white/95">
+<span class="text-amber-300 font-bold">وَالَّذِينَ جَٰهَدُواْ فِينَا لَنَهۡدِيَنَّهُمۡ سُبُلَنَاۚ وَإِنَّ ٱللَّهَ لَمَعَ ٱلۡمُحۡسِنِينَ</span>
+</p>
+</div>
+<div class="grid grid-cols-3 gap-4">
+<div class="bg-white/10 backdrop-blur-md rounded-lg border border-amber-400/30 p-4 text-center">
+<i class="material-icons text-amber-300 text-3xl mb-2">trending_up</i>
+<h3 class="body-font text-base font-bold text-white mb-1">الجهاد في سبيل الله</h3>
+<p class="body-font text-xs text-white/90">السعي والمثابرة في طاعة الله</p>
+</div>
+<div class="bg-white/10 backdrop-blur-md rounded-lg border border-amber-400/30 p-4 text-center">
+<i class="material-icons text-amber-300 text-3xl mb-2">wb_sunny</i>
+<h3 class="body-font text-base font-bold text-white mb-1">الهداية الإلهية</h3>
+<p class="body-font text-xs text-white/90">وعد من الله بالهداية إلى طرق الخير</p>
+</div>
+<div class="bg-white/10 backdrop-blur-md rounded-lg border border-amber-400/30 p-4 text-center">
+<i class="material-icons text-amber-300 text-3xl mb-2">verified</i>
+<h3 class="body-font text-base font-bold text-white mb-1">معية الله للمحسنين</h3>
+<p class="body-font text-xs text-white/90">الله مع المتقين المحسنين ينصرهم</p>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<!-- Navigation Controls -->
+<button class="nav-button nav-prev" onclick="changeSlide(-1)">
+<i class="material-icons text-4xl">arrow_back</i>
+</button>
+<button class="nav-button nav-next" onclick="changeSlide(1)">
+<i class="material-icons text-4xl">arrow_forward</i>
+</button>
+
+<!-- Slide Indicator -->
+<div class="slide-indicator">
+<span id="currentSlide">1</span> / <span id="totalSlides">14</span>
+</div>
+
+<script>
+let currentSlide = 1;
+const totalSlides = 14;
+
+function showSlide(n) {
+    if (n < 1) n = totalSlides;
+    if (n > totalSlides) n = 1;
+    
+    document.querySelectorAll('.slide').forEach(slide => {
+        slide.classList.remove('active');
+    });
+    
+    document.getElementById('slide' + n).classList.add('active');
+    document.getElementById('currentSlide').textContent = n;
+    currentSlide = n;
+}
+
+function changeSlide(n) {
+    showSlide(currentSlide + n);
+}
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        changeSlide(-1);
+    } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        changeSlide(1);
+    }
+});
+
+let touchStartX = 0;
+let touchEndX = 0;
+
+document.addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+}, false);
+
+document.addEventListener('touchend', function(e) {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+}, false);
+
+function handleSwipe() {
+    if (touchEndX < touchStartX - 50) {
+        changeSlide(1);
+    }
+    if (touchEndX > touchStartX + 50) {
+        changeSlide(-1);
+    }
+}
+
+showSlide(1);
+</script>
+
 </body>
 </html>
