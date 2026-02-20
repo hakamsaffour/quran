@@ -21,7 +21,8 @@
     background: var(--slide-bg);
     font-family: "Cairo", sans-serif;
     overflow: hidden;
-    touch-action: pan-x pan-y;
+    /* allow pinch zoom to reach the page */
+    touch-action: manipulation;
   }
 
   .title-font { font-family: "Amiri", serif; }
@@ -33,6 +34,15 @@
     height: 100dvh;
     position: relative;
     overflow: hidden;
+  }
+
+  /* ── Zoom layer: sits inside wrapper, receives CSS transform ── */
+  #zoomLayer {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-origin: 0 0;
+    will-change: transform;
   }
 
   /* ── Individual slide ── */
@@ -362,9 +372,10 @@
 </head>
 <body>
 
-<div id="zoomHint">اضغط مرتين للتكبير · اسحب للتنقل</div>
+<div id="zoomHint">🔍 قرصي بإصبعين للتكبير · اضغط مرتين للتكبير السريع · اسحب للتنقل</div>
 
 <div id="slideWrapper">
+<div id="zoomLayer">
 
   <!-- ══════════════════════════════════════════════════ -->
   <!-- Slide 1: Cover                                    -->
@@ -777,6 +788,7 @@
     </div>
   </div>
 
+</div><!-- end zoomLayer -->
 </div><!-- end slideWrapper -->
 
 <!-- Navigation -->
@@ -807,7 +819,6 @@
     cur = n;
     slides[cur - 1].classList.add('active');
     curEl.textContent = cur;
-    // reset scroll on new slide
     const content = slides[cur - 1].querySelector('.slide-content');
     if (content) content.scrollTop = 0;
   }
@@ -815,41 +826,173 @@
   document.getElementById('btnPrev').addEventListener('click', () => goTo(cur - 1));
   document.getElementById('btnNext').addEventListener('click', () => goTo(cur + 1));
 
-  // Keyboard
   document.addEventListener('keydown', e => {
     if (e.key === 'ArrowLeft' || e.key === 'ArrowDown')  goTo(cur + 1);
     if (e.key === 'ArrowRight' || e.key === 'ArrowUp') goTo(cur - 1);
   });
 
-  // ── Touch swipe (horizontal only, not interfering with vertical scroll) ──
-  let touchStartX = 0, touchStartY = 0, touchStartTime = 0;
-  let swipeHandled = false;
+  // ══════════════════════════════════════════════════════
+  // PINCH-TO-ZOOM  (CSS transform on #zoomLayer)
+  // ══════════════════════════════════════════════════════
+  const zoomLayer = document.getElementById('zoomLayer');
+  const MIN_SCALE = 1.0;
+  const MAX_SCALE = 5.0;
 
-  document.getElementById('slideWrapper').addEventListener('touchstart', e => {
-    touchStartX = e.touches[0].clientX;
-    touchStartY = e.touches[0].clientY;
-    touchStartTime = Date.now();
-    swipeHandled = false;
-  }, {passive: true});
+  let scale    = 1;   // current scale
+  let originX  = 0;   // transform-origin X in px
+  let originY  = 0;   // transform-origin Y in px
+  let panX     = 0;   // cumulative pan X
+  let panY     = 0;   // cumulative pan Y
 
-  document.getElementById('slideWrapper').addEventListener('touchend', e => {
-    if (swipeHandled) return;
+  // Pinch state
+  let isPinching   = false;
+  let pinchStart   = 1;
+  let pinchOriginX = 0;
+  let pinchOriginY = 0;
+
+  // Swipe / pan state
+  let isTouching   = false;
+  let touchStartX  = 0;
+  let touchStartY  = 0;
+  let touchStartTime = 0;
+  let panStartX    = 0;
+  let panStartY    = 0;
+
+  function getDist(t) {
+    const dx = t[0].clientX - t[1].clientX;
+    const dy = t[0].clientY - t[1].clientY;
+    return Math.sqrt(dx*dx + dy*dy);
+  }
+  function getMidpoint(t) {
+    return {
+      x: (t[0].clientX + t[1].clientX) / 2,
+      y: (t[0].clientY + t[1].clientY) / 2
+    };
+  }
+
+  function applyTransform() {
+    zoomLayer.style.transform =
+      'translate(' + panX + 'px,' + panY + 'px) scale(' + scale + ')';
+    zoomLayer.style.transformOrigin = '0 0';
+  }
+
+  function clampPan() {
+    // Clamp so the content doesn't leave the viewport
+    const W = window.innerWidth;
+    const H = window.innerHeight;
+    const scaledW = W * scale;
+    const scaledH = H * scale;
+    const maxPanX = 0;
+    const minPanX = Math.min(0, W - scaledW);
+    const maxPanY = 0;
+    const minPanY = Math.min(0, H - scaledH);
+    panX = Math.min(maxPanX, Math.max(minPanX, panX));
+    panY = Math.min(maxPanY, Math.max(minPanY, panY));
+  }
+
+  // Double-tap to zoom in/out
+  let lastTapTime = 0;
+  let lastTapX = 0, lastTapY = 0;
+
+  document.getElementById('slideWrapper').addEventListener('touchstart', function(e) {
+    isTouching = true;
+
+    if (e.touches.length === 2) {
+      // ── Pinch start ──
+      isPinching   = true;
+      pinchStart   = getDist(e.touches);
+      const mid    = getMidpoint(e.touches);
+      // midpoint in the unscaled coordinate system
+      pinchOriginX = (mid.x - panX) / scale;
+      pinchOriginY = (mid.y - panY) / scale;
+      e.preventDefault(); // stop page scroll during pinch
+    } else if (e.touches.length === 1) {
+      isPinching = false;
+      touchStartX  = e.touches[0].clientX;
+      touchStartY  = e.touches[0].clientY;
+      touchStartTime = Date.now();
+      panStartX    = panX;
+      panStartY    = panY;
+
+      // Double-tap detection
+      const now = Date.now();
+      const tx  = e.touches[0].clientX;
+      const ty  = e.touches[0].clientY;
+      if (now - lastTapTime < 300 && Math.abs(tx - lastTapX) < 30 && Math.abs(ty - lastTapY) < 30) {
+        // Double tap: zoom in if near 1, else reset
+        if (scale < 1.5) {
+          const newScale = 2.5;
+          panX = tx - (tx - panX) * (newScale / scale);
+          panY = ty - (ty - panY) * (newScale / scale);
+          scale = newScale;
+          clampPan();
+        } else {
+          scale = 1; panX = 0; panY = 0;
+        }
+        applyTransform();
+        lastTapTime = 0;
+        e.preventDefault();
+        return;
+      }
+      lastTapTime = now;
+      lastTapX = tx; lastTapY = ty;
+    }
+  }, {passive: false});
+
+  document.getElementById('slideWrapper').addEventListener('touchmove', function(e) {
+    if (e.touches.length === 2 && isPinching) {
+      // ── Pinch move ──
+      e.preventDefault();
+      const newDist  = getDist(e.touches);
+      const newScale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, scale * (newDist / pinchStart)));
+      pinchStart     = newDist;
+
+      // Adjust pan so the pinch origin stays fixed on screen
+      panX = pinchOriginX * scale + panX - pinchOriginX * newScale;
+      panY = pinchOriginY * scale + panY - pinchOriginY * newScale;
+      scale = newScale;
+
+      // Update pinch origin for this frame
+      const mid    = getMidpoint(e.touches);
+      pinchOriginX = (mid.x - panX) / scale;
+      pinchOriginY = (mid.y - panY) / scale;
+
+      clampPan();
+      applyTransform();
+
+    } else if (e.touches.length === 1 && !isPinching && scale > 1) {
+      // ── Pan while zoomed ──
+      e.preventDefault();
+      panX = panStartX + (e.touches[0].clientX - touchStartX);
+      panY = panStartY + (e.touches[0].clientY - touchStartY);
+      clampPan();
+      applyTransform();
+    }
+    // When scale === 1: let native scroll handle single-touch moves
+  }, {passive: false});
+
+  document.getElementById('slideWrapper').addEventListener('touchend', function(e) {
+    if (isPinching && e.touches.length < 2) {
+      isPinching = false;
+      return;
+    }
+    if (isPinching) return;
+
     const dx = e.changedTouches[0].clientX - touchStartX;
     const dy = e.changedTouches[0].clientY - touchStartY;
     const dt = Date.now() - touchStartTime;
-    // Only trigger if mostly horizontal and reasonably fast
-    if (Math.abs(dx) > Math.abs(dy) * 1.5 && Math.abs(dx) > 50 && dt < 600) {
-      swipeHandled = true;
-      if (dx < 0) goTo(cur + 1); // swipe left → next
-      else         goTo(cur - 1); // swipe right → prev
+
+    // Only swipe to change slide when not zoomed in
+    if (scale <= 1.05 && Math.abs(dx) > Math.abs(dy) * 1.5 && Math.abs(dx) > 50 && dt < 600) {
+      if (dx < 0) goTo(cur + 1);
+      else         goTo(cur - 1);
     }
+    isTouching = false;
   }, {passive: true});
 
-  // ── Pinch-to-zoom: native browser zoom is enabled via viewport meta ──
-  // We just need to ensure the slide content uses touch-action: pan-y for scrolling
-  // and the wrapper allows pinch zoom by not blocking it.
-
-  // ── Zoom hint auto-hide ──
+  // ══════════════════════════════════════════════════════
+  // Zoom hint
+  // ══════════════════════════════════════════════════════
   const hint = document.getElementById('zoomHint');
   setTimeout(() => { hint.style.opacity = '0'; }, 3000);
   setTimeout(() => { hint.style.display = 'none'; }, 3500);
